@@ -5,12 +5,11 @@ import {Context} from '../Context/BlogContext';
 import {Feather} from "@expo/vector-icons"
  
 const IndexScreen = ({navigation}) => {
-    const {state , addBlogPost, deleteBlogPost} = useContext(Context);
+    const {state , deleteBlogPost} = useContext(Context);
         
 
     return (
         <View>
-            <Button title = "Add a blog" onPress={addBlogPost}/>
             <FlatList
             data = {state}
             keyExtractor = {(blogPost) => blogPost.title}
@@ -28,6 +27,18 @@ const IndexScreen = ({navigation}) => {
         </View>
     )
 }
+
+
+IndexScreen.navigationOptions = ({navigation}) => {
+    return {
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+            <Feather name="plus" size={30} style={styles.marginPlusIcon}/>
+          </TouchableOpacity>
+        ),
+      };
+}
+
 
 const styles = StyleSheet.create({
     row : {
@@ -48,6 +59,9 @@ const styles = StyleSheet.create({
         backgroundColor: "red",
         fontSize : 30,
         color : "red"
+    },
+    marginPlusIcon : {
+        marginRight : 20
     }
 })
 
